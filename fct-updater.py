@@ -15,7 +15,7 @@ def selection_error():
 def prompt(tag_list):
     while True:
         try:
-            network = int(input("Network Selection\n1) MainNet\n2) TestNet\nChoice: "))
+            network = int(input("\n### Network Selection ###\n1) MainNet\n2) TestNet\nChoice: "))
             if network == 1:
                 mainnet = True
                 break
@@ -27,7 +27,7 @@ def prompt(tag_list):
         except ValueError:
             selection_error()
 
-    print("\nDockerhub Image Selection")
+    print("\n### Docker Image Selection ###")
     for i, tag in enumerate(tag_list):
         print("%s) %s" % (i+1, tag))
 
@@ -36,7 +36,8 @@ def prompt(tag_list):
             choice = input("Choice: ")
             index = int(choice)
             selection = tag_list[index - 1]
-            print("\nNetwork: %s" % ("Mainnet" if mainnet else "Testnet"))
+
+            print("\n### Confirm ###\nNetwork: %s" % ("Mainnet" if mainnet else "Testnet"))
             print("Image: %s" % selection)
             return selection, mainnet
         except (ValueError, IndexError):
@@ -68,7 +69,7 @@ try:
     data = json.loads(response_content)
     results = data["results"]
 except (json.JSONDecodeError, KeyError, UnicodeDecodeError) as e:
-    print("Error parsing dockerhub response: %s" % e)
+    print("Error parsing Docker Hub response: %s" % e)
     sys.exit(3)
 tag_list = parse_results(results)
 
@@ -86,7 +87,7 @@ else:
                             '-customnet=fct_community_test']
 # Confirm
 try:
-    input("Confirm? Press any button to continue. CTRL+C to cancel")
+    input("Press enter to continue. CTRL+C to cancel")
 except KeyboardInterrupt:
     print("Exiting...")
     sys.exit(4)
