@@ -95,9 +95,9 @@ except KeyboardInterrupt:
 # Stop / Remove / Run new version
 try:
     print("Stopping factomd container...")
-    subprocess.call([docker_path, "stop", "factomd"])
+    # subprocess.call([docker_path, "stop", "factomd"])
     print("Removing factomd container...")
-    subprocess.call([docker_path, "rm", "factomd"])
+    # subprocess.call([docker_path, "rm", "factomd"])
     print("Updating factomd container...")
     run_commands = [docker_path, 'run', '-d',
                     '--name', 'factomd',
@@ -112,7 +112,8 @@ try:
                     '-faulttimeout=120',
                     '-config=/root/.factom/private/factomd.conf']
     run_commands.extend(additional_commands)
-    subprocess.call(run_commands)
+    print(run_commands)
+    # subprocess.call(run_commands)
 except FileNotFoundError:
     print("Unable to run docker.\nEither run as sudo or check path is correct: %s" % docker_path)
     sys.exit(2)

@@ -9,9 +9,9 @@ If user is not in the docker group run as sudo.
 ### Usage
 
 ```bash
-wget https://raw.githubusercontent.com/kompendium-llc/fct-updater/master/fct-updater.py -O testnet-updater
-chmod +x testnet-updater
-./testnet-updater
+wget https://raw.githubusercontent.com/kompendium-llc/fct-updater/master/fct-updater.py -O fct-updater
+chmod +x fct-updater
+./fct-updater
 ```
 
 ### Example
