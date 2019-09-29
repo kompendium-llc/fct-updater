@@ -15,13 +15,11 @@ def selection_error():
 def prompt(tag_list):
     while True:
         try:
-            network = int(input("Select Network:\n1) MainNet\n2) TestNet"))
+            network = int(input("Network Selection\n1) MainNet\n2) TestNet\nChoice: "))
             if network == 1:
-                print("Network: MainNet")
                 mainnet = True
                 break
             elif network == 2:
-                print("Network: TestNet")
                 mainnet = False
                 break
             else:
@@ -29,15 +27,16 @@ def prompt(tag_list):
         except ValueError:
             selection_error()
 
-    print("Please choose an image to install:")
+    print("\nDockerhub Image Selection")
     for i, tag in enumerate(tag_list):
         print("%s) %s" % (i+1, tag))
 
     while True:
         try:
-            choice = input("Enter Image Number: ")
+            choice = input("Choice: ")
             index = int(choice)
             selection = tag_list[index - 1]
+            print("\nNetwork: %s" % ("Mainnet" if mainnet else "Testnet"))
             print("Image: %s" % selection)
             return selection, mainnet
         except (ValueError, IndexError):
@@ -86,7 +85,11 @@ else:
                             '-network=CUSTOM',
                             '-customnet=fct_community_test']
 # Confirm
-input("Confirm? Press any button to continue.")
+try:
+    input("Confirm? Press any button to continue. CTRL+C to cancel")
+except KeyboardInterrupt:
+    print("Exiting...")
+    sys.exit(4)
 
 # Stop / Remove / Run new version
 try:
