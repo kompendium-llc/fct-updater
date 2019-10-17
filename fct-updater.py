@@ -65,8 +65,7 @@ with urlopen(url) as response:
 
 # Parse data
 try:
-    response_content.decode('utf-8')
-    data = json.loads(response_content)
+    data = json.loads(response_content.decode('utf-8'))
     results = data["results"]
 except (json.JSONDecodeError, KeyError, UnicodeDecodeError) as e:
     print("Error parsing Docker Hub response: %s" % e)
