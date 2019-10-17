@@ -10,7 +10,7 @@ If the current user is not in the docker group run as sudo.
 ### Installation
 
 ```bash
-wget https://raw.githubusercontent.com/kompendium-llc/fct-updater/master/fct-updater.py -O fct-updater
+wget https://raw.githubusercontent.com/kompendium-llc/fct-updater/master/fct-updater.py -O fct-updater &&
 chmod +x fct-updater
 ```
 
