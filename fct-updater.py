@@ -107,12 +107,12 @@ try:
                     '-p', '8090:8090',
                     '-p', port_publish,
                     '-l', 'name=factomd',
+                    custom_arguments,
                     'factominc/factomd:%s' % selection,
                     '-startdelay=600',
                     '-faulttimeout=120',
                     '-config=/root/.factom/private/factomd.conf']
     run_commands.extend(network)
-    run_commands.append(custom_arguments)
     print(run_commands)
     subprocess.call(run_commands)
 except FileNotFoundError:
