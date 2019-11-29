@@ -100,6 +100,7 @@ try:
     subprocess.call([docker_path, "rm", "factomd"])
     print("Updating factomd container...")
     run_commands = [docker_path, 'run', '-d',
+                    custom_arguments,
                     '--name', 'factomd',
                     '-v', 'factom_database:/root/.factom/m2',
                     '-v', 'factom_keys:/root/.factom/private',
@@ -107,7 +108,6 @@ try:
                     '-p', '8090:8090',
                     '-p', port_publish,
                     '-l', 'name=factomd',
-                    custom_arguments,
                     'factominc/factomd:%s' % selection,
                     '-startdelay=600',
                     '-faulttimeout=120',
