@@ -36,11 +36,9 @@ def prompt(tag_list):
             choice = input("Choice: ")
             index = int(choice)
             selection = tag_list[index - 1]
-            custom_arguments = input("Additional Docker Arguments (Press Enter for none): ")
             print("\n### Confirm ###\nNetwork: %s" % ("Mainnet" if mainnet else "Testnet"))
             print("Image: %s" % selection)
-            print("Custom docker arguments: %s\n" % custom_arguments)
-            return selection, mainnet, custom_arguments
+            return selection, mainnet
         except (ValueError, IndexError):
             selection_error()
 
@@ -74,7 +72,7 @@ except (json.JSONDecodeError, KeyError, UnicodeDecodeError) as e:
 tag_list = parse_results(results)
 
 # Prompt user
-(selection, mainnet, custom_arguments) = prompt(tag_list)
+(selection, mainnet) = prompt(tag_list)
 
 # Network specific settings
 if mainnet:
@@ -100,7 +98,6 @@ try:
     subprocess.call([docker_path, "rm", "factomd"])
     print("Updating factomd container...")
     run_commands = [docker_path, 'run', '-d',
-                    custom_arguments,
                     '--name', 'factomd',
                     '-v', 'factom_database:/root/.factom/m2',
                     '-v', 'factom_keys:/root/.factom/private',
