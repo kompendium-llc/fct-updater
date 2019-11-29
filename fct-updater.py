@@ -36,10 +36,11 @@ def prompt(tag_list):
             choice = input("Choice: ")
             index = int(choice)
             selection = tag_list[index - 1]
-
+            custom_arguments = input("Additional Docker Arguments (Press Enter for none): ")
             print("\n### Confirm ###\nNetwork: %s" % ("Mainnet" if mainnet else "Testnet"))
             print("Image: %s" % selection)
-            return selection, mainnet
+            print("Custom docker arguments: %s\n" % custom_arguments)
+            return selection, mainnet, custom_arguments
         except (ValueError, IndexError):
             selection_error()
 
@@ -73,17 +74,17 @@ except (json.JSONDecodeError, KeyError, UnicodeDecodeError) as e:
 tag_list = parse_results(results)
 
 # Prompt user
-(selection, mainnet) = prompt(tag_list)
+(selection, mainnet, custom_arguments) = prompt(tag_list)
 
 # Network specific settings
 if mainnet:
     port_publish = '8108:8108'
-    additional_commands = []
+    network = []
 else:
     port_publish = '8110:8110'
-    additional_commands = ['-broadcastnum=16',
-                            '-network=CUSTOM',
-                            '-customnet=fct_community_test']
+    network = ['-broadcastnum=16',
+                '-network=CUSTOM',
+                '-customnet=fct_community_test']
 # Confirm
 try:
     input("Press enter to continue. CTRL+C to cancel")
@@ -110,7 +111,8 @@ try:
                     '-startdelay=600',
                     '-faulttimeout=120',
                     '-config=/root/.factom/private/factomd.conf']
-    run_commands.extend(additional_commands)
+    run_commands.extend(network)
+    run_commands.append(custom_arguments)
     print(run_commands)
     subprocess.call(run_commands)
 except FileNotFoundError:
