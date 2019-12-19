@@ -80,8 +80,7 @@ if mainnet:
     network = []
 else:
     port_publish = '8110:8110'
-    network = ['-broadcastnum=16',
-                '-network=CUSTOM',
+    network = [ '-network=CUSTOM',
                 '-customnet=fct_community_test']
 # Confirm
 try:
